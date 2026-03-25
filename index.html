@@ -2,791 +2,576 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Ashopian - E‑Commerce</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarazClone - E-Commerce Platform</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Segoe UI,Arial,sans-serif;background:#f7f7f7;color:#333}
+        header{background:#ff5b00;color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
+        .container{max-width:1200px;margin:0 auto;padding:0 16px}
+        .header-wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+        .logo{font-size:1.6rem;font-weight:bold}
+        nav ul{display:flex;list-style:none;gap:16px}
+        nav a{color:#fff;text-decoration:none;font-weight:500}
+        .auth-area{display:flex;align-items:center;gap:8px}
+        .btn{border:none;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.9rem}
+        .btn-primary{background:#fff;color:#ff5b00;font-weight:600}
+        .btn-ghost{background:transparent;border:1px solid #fff;color:#fff}
+        main{min-height:80vh;padding:16px 0}
+        .section{display:none}
+        .section.active{display:block}
+        .hero{background:linear-gradient(120deg,#ff5b00,#ff8a3d);color:#fff;border-radius:16px;padding:24px;margin-top:8px}
+        .hero h1{margin-bottom:6px}
+        .hero p{opacity:0.9}
+        .search-bar{margin:18px 0;text-align:center}
+        .search-input{width:100%;max-width:500px;padding:10px 16px;border-radius:30px;border:1px solid #ddd;font-size:0.95rem}
+        .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+        .filters select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:0.85rem}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+        .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;flex-direction:column}
+        .card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#fff7f1}
+        .card-body{padding:12px 14px;flex:1}
+        .card-title{font-size:1rem;font-weight:600;margin-bottom:4px}
+        .card-desc{font-size:0.82rem;color:#666;margin-bottom:6px;min-height:32px}
+        .card-meta{font-size:0.8rem;color:#999;margin-bottom:8px}
+        .price{font-size:1.1rem;font-weight:700;color:#ff5b00;margin-bottom:8px}
+        .full-btn{width:100%;margin-top:auto}
+        .form-box{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);max-width:480px;margin:0 auto 20px}
+        .form-group{margin-bottom:10px}
+        .form-group label{font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border-radius:6px;border:1px solid #ddd;font-size:0.9rem}
+        h2{margin:10px 0}
+        #cart-items .cart-row,#orders-list .order-card{background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+        .cart-row{display:flex;gap:10px;align-items:center}
+        .mini-img{width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:#fff2e8}
+        .cart-main{flex:1}
+        .qty{display:flex;align-items:center;gap:4px;font-size:0.85rem}
+        .qty button{width:22px;height:22px;border-radius:50%;border:1px solid #ddd;background:#fff;cursor:pointer}
+        .text-link{color:#ff5b00;text-decoration:none}
+        .badge{display:inline-block;font-size:0.75rem;border-radius:999px;padding:2px 8px;font-weight:600}
+        .badge-pending{background:#fff3cd;color:#8a6d3b}
+        .badge-shipped{background:#d1ecf1;color:#0c5460}
+        .badge-delivered{background:#d4edda;color:#155724}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:20}
+        .modal-inner{background:#fff;border-radius:12px;max-width:420px;margin:8% auto;padding:16px}
+        .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+        @media(max-width:768px){
+            .header-wrap{flex-direction:column;align-items:flex-start;gap:6px}
+            nav ul{flex-wrap:wrap}
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: #fff;
-            color: #ff6b6b;
-        }
-
-        .btn-primary:hover {
-            background: #f0f0f0;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #ff6b6b;
-        }
-
-        /* Main Content */
-        main {
-            min-height: 80vh;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8f9fa" width="1200" height="600"/><text x="50%" y="50%" font-family="Arial" font-size="48" fill="%23666" text-anchor="middle" dominant-baseline="middle">Shopping Banner</text></svg>');
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        /* Search Bar */
-        .search-container {
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .search-box {
-            width: 100%;
-            max-width: 500px;
-            padding: 1rem;
-            font-size: 1.1rem;
-            border: 2px solid #ddd;
-            border-radius: 50px;
-            outline: none;
-        }
-
-        /* Filters */
-        .filters {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .filter-group select {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        /* Product Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .product-card {
-            border: 1px solid #eee;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: white;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #999;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-        }
-
-        /* Forms */
-        .form-container {
-            max-width: 500px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        /* Cart & Orders */
-        .cart-item, .order-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .item-details {
-            flex: 1;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-        }
-
-        .modal-content {
-            background: white;
-            margin: 5% auto;
-            padding: 2rem;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 15px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .filters {
-                flex-direction: column;
-            }
-        }
-
-        /* Status badges */
-        .status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .status.pending { background: #fff3cd; color: #856404; }
-        .status.shipped { background: #d1ecf1; color: #0c5460; }
-        .status.delivered { background: #d4edda; color: #155724; }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">🛒 DarazClone</div>
-                <nav>
-                    <ul>
-                        <li><a href="#" onclick="showSection('home')">🏠 Home</a></li>
-                        <li><a href="#" onclick="showSection('products')">📦 Products</a></li>
-                        <li><a href="#" onclick="showSection('cart')">🛒 Cart (<span id="cart-count">0</span>)</a></li>
-                        <li><a href="#" onclick="showSection('orders')">📋 Orders</a></li>
-                        <li><a href="#" onclick="showSection('seller')">👨‍💼 Seller</a></li>
-                    </ul>
-                </div>
-                <div class="auth-buttons">
-                    <button class="btn btn-secondary" onclick="showLogin()">Login</button>
-                    <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
-                    <span id="user-info" style="display: none;"></span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="container">
-                <div class="hero">
-                    <h1>Shop Everything You Need</h1>
-                    <p>Discover amazing deals on electronics, fashion, and more!</p>
-                </div>
-
-                <div class="search-container">
-                    <input type="text" id="search-input" class="search-box" placeholder="🔍 Search products, categories..." oninput="filterProducts()">
-                </div>
-
-                <div class="filters">
-                    <div class="filter-group">
-                        <select id="category-filter" onchange="filterProducts()">
-                            <option value="">All Categories</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="fashion">Fashion</option>
-                            <option value="home">Home & Kitchen</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <select id="price-filter" onchange="filterProducts()">
-                            <option value="">All Prices</option>
-                            <option value="0-500">Under $500</option>
-                            <option value="500-1000">$500 - $1000</option>
-                            <option value="1000+">Over $1000</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <select id="rating-filter" onchange="filterProducts()">
-                            <option value="">All Ratings</option>
-                            <option value="4">4+ Stars</option>
-                            <option value="5">5 Stars</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="products-grid" id="products-grid">
-                    <!-- Products will be populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Products Section (for sellers) -->
-        <section id="seller" class="section">
-            <div class="container">
-                <div class="form-container">
-                    <h2>📦 Manage Products</h2>
-                    <form id="product-form">
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" id="product-title" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Price ($)</label>
-                            <input type="number" id="product-price" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select id="product-category" required>
-                                <option value="electronics">Electronics</option>
-                                <option value="fashion">Fashion</option>
-                                <option value="home">Home & Kitchen</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea id="product-desc" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Rating (1-5)</label>
-                            <input type="number" id="product-rating" min="1" max="5" step="0.1" value="5">
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Add Product</button>
-                    </form>
-                </div>
-
-                <h3>Your Products</h3>
-                <div id="seller-products"></div>
-            </div>
-        </section>
-
-        <!-- Cart Section -->
-        <section id="cart" class="section">
-            <div class="container">
-                <h2>🛒 Shopping Cart</h2>
-                <div id="cart-items"></div>
-                <div id="checkout-section" style="margin-top: 2rem;">
-                    <h3>Total: $<span id="cart-total">0</span></h3>
-                    <button class="btn btn-primary" onclick="checkout()" style="width: 200px; font-size: 1.1rem;">Proceed to Checkout</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Orders Section -->
-        <section id="orders" class="section">
-            <div class="container">
-                <h2>📋 Your Orders</h2>
-                <div id="orders-list"></div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Auth Modals -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <h2>🔐 Login</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="login-email" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="login-password" required>
-                </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('login-modal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-            </form>
+<header>
+    <div class="container header-wrap">
+        <div class="logo">🛒 Ashopian</div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('cart')">Cart (<span id="cart-count">0</span>)</a></li>
+                <li><a href="#" onclick="showSection('orders')">Orders</a></li>
+                <li><a href="#" onclick="showSection('seller')">Seller</a></li>
+            </ul>
+        </nav>
+        <div class="auth-area">
+            <span id="user-label" style="font-size:0.85rem;display:none;"></span>
+            <button class="btn btn-ghost" id="login-btn" onclick="openModal('login-modal')">Login</button>
+            <button class="btn btn-primary" id="signup-btn" onclick="openModal('signup-modal')">Sign Up</button>
         </div>
     </div>
+</header>
 
-    <div id="signup-modal" class="modal">
-        <div class="modal-content">
-            <h2>📝 Sign Up</h2>
-            <form id="signup-form">
+<main class="container">
+    <!-- HOME -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <h1>Shop phones, fashion, beauty & kitchen</h1>
+            <p>Galaxy S24 in orange, iPhone 15 Pro, makeup, summer dresses with jewelry, perfumes, rice, mixers and more – in pounds.</p>
+        </div>
+
+        <div class="search-bar">
+            <input id="search-input" class="search-input" type="text" placeholder="Search products, e.g. Galaxy S24, Chanel, mixer..." oninput="filterProducts()">
+        </div>
+
+        <div class="filters">
+            <select id="category-filter" onchange="filterProducts()">
+                <option value="">All categories</option>
+                <option value="phones">Phones</option>
+                <option value="fashion">Fashion</option>
+                <option value="beauty">Beauty</option>
+                <option value="kitchen">Kitchen</option>
+                <option value="grocery">Grocery</option>
+            </select>
+            <select id="price-filter" onchange="filterProducts()">
+                <option value="">All prices</option>
+                <option value="0-50">Under £50</option>
+                <option value="50-200">£50 – £200</option>
+                <option value="200+">Over £200</option>
+            </select>
+            <select id="rating-filter" onchange="filterProducts()">
+                <option value="">All ratings</option>
+                <option value="4">4★ & up</option>
+                <option value="4.5">4.5★ & up</option>
+                <option value="5">5★ only</option>
+            </select>
+        </div>
+
+        <div id="products-grid" class="products-grid"></div>
+    </section>
+
+    <!-- CART -->
+    <section id="cart" class="section">
+        <h2>Your cart</h2>
+        <div id="cart-items"></div>
+        <div id="cart-summary" style="margin-top:10px;">
+            <p><strong>Total: £<span id="cart-total">0.00</span></strong></p>
+            <button class="btn btn-primary" style="margin-top:8px;" onclick="beginCheckout()">Proceed to checkout</button>
+        </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section id="orders" class="section">
+        <h2>Your orders</h2>
+        <div id="orders-list"></div>
+    </section>
+
+    <!-- SELLER -->
+    <section id="seller" class="section">
+        <h2>Add your own product</h2>
+        <div class="form-box">
+            <form id="product-form">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="signup-name" required>
+                    <label>Product name</label>
+                    <input id="p-name" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signup-email" required>
+                    <label>Price (£)</label>
+                    <input id="p-price" type="number" step="0.01" required>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="signup-password" required>
+                    <label>Category</label>
+                    <select id="p-category" required>
+                        <option value="phones">Phones</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="grocery">Grocery</option>
+                    </select>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('signup-modal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="p-desc" rows="2"></textarea>
                 </div>
+                <div class="form-group">
+                    <label>Rating (1–5)</label>
+                    <input id="p-rating" type="number" min="1" max="5" step="0.1" value="4.8">
+                </div>
+                <button class="btn btn-primary full-btn" type="submit">Add product</button>
             </form>
         </div>
-    </div>
 
-    <!-- Checkout Modal -->
-    <div id="checkout-modal" class="modal">
-        <div class="modal-content">
-            <h2>💳 Checkout</h2>
-            <form id="checkout-form">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="checkout-name" required>
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea id="checkout-address" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Card Number</label>
-                    <input type="text" id="checkout-card" placeholder="1234 5678 9012 3456" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Pay Now</button>
-            </form>
+        <h3>Your products</h3>
+        <div id="seller-products"></div>
+    </section>
+</main>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal" class="modal">
+    <div class="modal-inner">
+        <h2>Login</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label>Email</label>
+                <input id="login-email" type="email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input id="login-pass" type="password" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" onclick="closeModal('login-modal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div id="signup-modal" class="modal">
+    <div class="modal-inner">
+        <h2>Sign up</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <label>Name</label>
+                <input id="su-name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input id="su-email" type="email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input id="su-pass" type="password" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" onclick="closeModal('signup-modal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create account</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" class="modal">
+    <div class="modal-inner">
+        <h2>Checkout</h2>
+        <form id="checkout-form">
+            <div class="form-group">
+                <label>Full name</label>
+                <input id="co-name" required>
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea id="co-address" rows="2" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Delivery method</label>
+                <select id="co-method" required>
+                    <option value="delivery">Home delivery</option>
+                    <option value="pickup">Pickup</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Card number (dummy)</label>
+                <input id="co-card" placeholder="1111 2222 3333 4444" required>
+            </div>
+            <p style="font-size:0.8rem;color:#666;">
+                This is a demo payment. Delivery or pickup details will appear with your order confirmation.
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" onclick="closeModal('checkout-modal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Pay & place order</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let currentUser = null;
+
+let products = [
+    {
+        id:1,
+        name:'Samsung Galaxy S24 (Sandstone Orange)',
+        category:'phones',
+        price:899,
+        desc:'6.2" AMOLED display, triple camera, Sandstone Orange colour.',
+        rating:4.8
+    },
+    {
+        id:2,
+        name:'Apple iPhone 15 Pro',
+        category:'phones',
+        price:999,
+        desc:'6.1" OLED display and A17 Pro chip, Pro camera system.',
+        rating:4.9
+    },
+    {
+        id:3,
+        name:'Summer Dress + Necklace & Earrings',
+        category:'fashion',
+        price:65,
+        desc:'Light summer dress with matching necklace and earrings set.',
+        rating:4.6
+    },
+    {
+        id:4,
+        name:'Makeup Set: Lipstick & Mascara',
+        category:'beauty',
+        price:32,
+        desc:'Daily wear lipstick and volume mascara combo.',
+        rating:4.7
+    },
+    {
+        id:5,
+        name:'Kitchen Mixer',
+        category:'kitchen',
+        price:180,
+        desc:'Stand mixer for cakes, dough and desserts.',
+        rating:4.5
+    },
+    {
+        id:6,
+        name:'5kg Premium Rice',
+        category:'grocery',
+        price:11,
+        desc:'Long grain rice in 5kg bag, perfect for daily cooking.',
+        rating:4.4
+    },
+    {
+        id:7,
+        name:'Dyson Styled Hair Dryer (Box)',
+        category:'beauty',
+        price:299,
+        desc:'High performance hair dryer in Dyson-style box.',
+        rating:4.9
+    },
+    {
+        id:8,
+        name:'Chanel Inspired Perfume',
+        category:'beauty',
+        price:89,
+        desc:'Elegant floral fragrance in classic style bottle.',
+        rating:4.8
+    },
+    {
+        id:9,
+        name:'Dior Inspired Perfume',
+        category:'beauty',
+        price:85,
+        desc:'Soft, feminine perfume with warm floral notes.',
+        rating:4.7
+    }
+];
+
+let nextProductId = 10;
+let cart = [];
+let orders = [];
+
+function productIcon(p){
+    const n = p.name.toLowerCase();
+    if(n.includes('galaxy') || n.includes('iphone')) return '📱';
+    if(p.category==='fashion') return '👗';
+    if(n.includes('necklace') || n.includes('earrings')) return '💍';
+    if(n.includes('lipstick') || n.includes('mascara') || n.includes('makeup')) return '💄';
+    if(n.includes('perfume') || n.includes('chanel') || n.includes('dior')) return '🧴';
+    if(p.category==='kitchen' || n.includes('mixer')) return '🧁';
+    if(p.category==='grocery' || n.includes('rice')) return '🍚';
+    if(n.includes('dyson')) return '📦';
+    return '📦';
+}
+
+function showSection(id){
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if(id==='cart') renderCart();
+    if(id==='orders') renderOrders();
+    if(id==='seller') renderSellerProducts();
+}
+
+function renderProducts(list = products){
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = list.map(p=>`
+        <div class="card">
+            <div class="card-img">${productIcon(p)}</div>
+            <div class="card-body">
+                <div class="card-title">${p.name}</div>
+                <div class="card-desc">${p.desc}</div>
+                <div class="card-meta">Category: ${p.category} · ⭐ ${p.rating}</div>
+                <div class="price">£${p.price.toFixed(2)}</div>
+                <button class="btn btn-primary full-btn" onclick="addToCart(${p.id})">Add to cart</button>
+            </div>
         </div>
-    </div>
+    `).join('');
+}
 
-    <script>
-        // App State
-        let currentUser = null;
-        let products = [
-            { id: 1, title: 'iPhone 15 Pro', price: 999, category: 'electronics', desc: 'Latest iPhone with A17 chip', rating: 4.8 },
-            { id: 2, title: 'Samsung Galaxy S24', price: 899, category: 'electronics', desc: 'Flagship Android phone', rating: 4.7 },
-            { id: 3, title: 'Summer Dress', price: 49, category: 'fashion', desc: 'Elegant summer dress', rating: 4.5 },
-            { id: 4, title: 'AirPods Pro', price: 249, category: 'electronics', desc: 'Noise cancelling earbuds', rating: 4.9 },
-            { id: 5, title: 'Kitchen Mixer', price: 199, category: 'home', desc: 'Professional stand mixer', rating: 4.6 },
-            { id: 6, title: 'Nike Air Max', price: 129, category: 'fashion', desc: 'Comfortable running shoes', rating: 4.4 }
-        ];
-        let cart = [];
-        let orders = [];
+function filterProducts(){
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const cat = document.getElementById('category-filter').value;
+    const price = document.getElementById('price-filter').value;
+    const rating = document.getElementById('rating-filter').value;
+    let list = products.filter(p=>{
+        const matchQ = p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+        const matchCat = !cat || p.category===cat;
+        let matchPrice = true;
+        if(price==='0-50') matchPrice = p.price<=50;
+        else if(price==='50-200') matchPrice = p.price>50 && p.price<=200;
+        else if(price==='200+') matchPrice = p.price>200;
+        const matchRating = !rating || p.rating>=parseFloat(rating);
+        return matchQ && matchCat && matchPrice && matchRating;
+    });
+    renderProducts(list);
+}
 
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
-            updateCartCount();
-            setupEventListeners();
-        });
+function addToCart(id){
+    const p = products.find(x=>x.id===id);
+    if(!p) return;
+    const existing = cart.find(x=>x.id===id);
+    if(existing) existing.qty+=1;
+    else cart.push({id:p.id,name:p.name,price:p.price,qty:1,icon:productIcon(p)});
+    updateCartCount();
+    alert(p.name+' added to cart');
+}
 
-        function setupEventListeners() {
-            // Product form
-            document.getElementById('product-form').addEventListener('submit', addProduct);
-            // Auth forms
-            document.getElementById('login-form').addEventListener('submit', handleLogin);
-            document.getElementById('signup-form').addEventListener('submit', handleSignup);
-            document.getElementById('checkout-form').addEventListener('submit', handleCheckout);
-        }
+function updateCartCount(){
+    const c = cart.reduce((s,i)=>s+i.qty,0);
+    document.getElementById('cart-count').textContent = c;
+}
 
-        // Section Navigation
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-            
-            if (sectionId === 'seller') renderSellerProducts();
-            if (sectionId === 'cart') renderCart();
-            if (sectionId === 'orders') renderOrders();
-        }
-
-        // Authentication
-        function showLogin() {
-            document.getElementById('login-modal').style.display = 'block';
-        }
-
-        function showSignup() {
-            document.getElementById('signup-modal').style.display = 'block';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            
-            currentUser = { name, email, isSeller: true };
-            document.getElementById('user-info').textContent = `Welcome, ${name}!`;
-            document.getElementById('user-info').style.display = 'inline';
-            document.querySelectorAll('.auth-buttons button').forEach(btn => btn.style.display = 'none');
-            document.getElementById('user-info').style.display = 'inline';
-            
-            closeModal('signup-modal');
-            alert('Account created successfully!');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            // Dummy authentication
-            currentUser = { name: 'User', email, isSeller: true };
-            document.getElementById('user-info').textContent = `Welcome, User!`;
-            document.getElementById('user-info').style.display = 'inline';
-            document.querySelectorAll('.auth-buttons button').forEach(btn => btn.style.display = 'none');
-            
-            closeModal('login-modal');
-            alert('Logged in successfully!');
-        }
-
-        // Products
-        function renderProducts(filteredProducts = products) {
-            const grid = document.getElementById('products-grid');
-            grid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card">
-                    <div class="product-image">📱</div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.title}</h3>
-                        <p>${product.desc}</p>
-                        <div class="product-price">$${product.price}</div>
-                        <div>⭐ ${product.rating}/5</div>
-                        <button class="btn btn-primary" onclick="addToCart(${product.id})" style="margin-top: 1rem; width: 100%;">
-                            Add to Cart
-                        </button>
-                    </div>
+function renderCart(){
+    const box = document.getElementById('cart-items');
+    if(cart.length===0){
+        box.innerHTML = '<p>Your cart is empty. <a href="#" class="text-link" onclick="showSection(\\'home\\')">Shop now</a></p>';
+        document.getElementById('cart-total').textContent='0.00';
+        return;
+    }
+    let total = 0;
+    box.innerHTML = cart.map(item=>{
+        const sub = item.price*item.qty;
+        total+=sub;
+        return `
+        <div class="cart-row">
+            <div class="mini-img">${item.icon || '📦'}</div>
+            <div class="cart-main">
+                <div style="font-size:0.9rem;font-weight:600;">${item.name}</div>
+                <div style="font-size:0.8rem;color:#666;">£${item.price.toFixed(2)} each</div>
+                <div class="qty">
+                    <button onclick="changeQty(${item.id},-1)">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${item.id},1)">+</button>
                 </div>
-            `).join('');
-        }
+            </div>
+            <div style="font-size:0.9rem;font-weight:600;">£${sub.toFixed(2)}</div>
+            <button class="btn btn-ghost" style="font-size:0.75rem;" onclick="removeFromCart(${item.id})">Remove</button>
+        </div>`;
+    }).join('');
+    document.getElementById('cart-total').textContent = total.toFixed(2);
+}
 
-        function filterProducts() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const category = document.getElementById('category-filter').value;
-            const priceRange = document.getElementById('price-filter').value;
-            const rating = document.getElementById('rating-filter').value;
+function changeQty(id,delta){
+    const item = cart.find(x=>x.id===id);
+    if(!item) return;
+    item.qty+=delta;
+    if(item.qty<=0) cart = cart.filter(x=>x.id!==id);
+    renderCart();
+    updateCartCount();
+}
 
-            let filtered = products.filter(product => {
-                const matchesSearch = product.title.toLowerCase().includes(searchTerm) || 
-                                    product.desc.toLowerCase().includes(searchTerm);
-                const matchesCategory = !category || product.category === category;
-                
-                let matchesPrice = true;
-                if (priceRange === '0-500') matchesPrice = product.price <= 500;
-                else if (priceRange === '500-1000') matchesPrice = product.price > 500 && product.price <= 1000;
-                else if (priceRange === '1000+') matchesPrice = product.price > 1000;
+function removeFromCart(id){
+    cart = cart.filter(x=>x.id!==id);
+    renderCart();
+    updateCartCount();
+}
 
-                const matchesRating = !rating || product.rating >= parseFloat(rating);
+function beginCheckout(){
+    if(cart.length===0){alert('Cart is empty');return;}
+    openModal('checkout-modal');
+}
 
-                return matchesSearch && matchesCategory && matchesPrice && matchesRating;
-            });
+function placeOrder(e){
+    e.preventDefault();
+    if(cart.length===0){alert('Cart is empty');return;}
+    const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    const method = document.getElementById('co-method').value;
+    const order = {
+        id:Date.now(),
+        items:JSON.parse(JSON.stringify(cart)),
+        total,
+        date:new Date().toLocaleDateString(),
+        status:'pending',
+        delivery:method==='delivery'?'Home delivery':'Pickup'
+    };
+    orders.unshift(order);
+    cart = [];
+    updateCartCount();
+    renderCart();
+    closeModal('checkout-modal');
+    alert('Order placed. Delivery / pickup info will show with the order.');
+}
 
-            renderProducts(filtered);
-        }
+function renderOrders(){
+    const box = document.getElementById('orders-list');
+    if(orders.length===0){
+        box.innerHTML = '<p>No orders yet.</p>';
+        return;
+    }
+    box.innerHTML = orders.map(o=>{
+        const statusClass = o.status==='pending'?'badge-pending':o.status==='shipped'?'badge-shipped':'badge-delivered';
+        return `
+        <div class="order-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="font-size:0.9rem;font-weight:600;">Order #${o.id}</div>
+                <span class="badge ${statusClass}">${o.status.toUpperCase()}</span>
+            </div>
+            <div style="font-size:0.8rem;margin-top:4px;">
+                Date: ${o.date} · Total: £${o.total.toFixed(2)} · ${o.delivery}
+            </div>
+            <div style="font-size:0.8rem;margin-top:6px;">
+                ${o.items.map(i=>`${i.name} x${i.qty}`).join('<br>')}
+            </div>
+        </div>`;
+    }).join('');
+}
 
-        function addProduct(e) {
-            e.preventDefault();
-            if (!currentUser) {
-                alert('Please login first!');
-                showLogin();
-                return;
-            }
+function renderSellerProducts(){
+    const box = document.getElementById('seller-products');
+    if(products.length===0){box.innerHTML='<p>No products.</p>';return;}
+    box.innerHTML = products.map(p=>`
+        <div style="background:#fff;border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:0.85rem;display:flex;justify-content:space-between;align-items:center;">
+            <span>${p.name} · £${p.price.toFixed(2)} · ${p.category}</span>
+            <button class="btn btn-ghost" style="font-size:0.75rem;" onclick="deleteProduct(${p.id})">Delete</button>
+        </div>
+    `).join('');
+}
 
-            const product = {
-                id: Date.now(),
-                title: document.getElementById('product-title').value,
-                price: parseFloat(document.getElementById('product-price').value),
-                category: document.getElementById('product-category').value,
-                desc: document.getElementById('product-desc').value,
-                rating: parseFloat(document.getElementById('product-rating').value)
-            };
+function deleteProduct(id){
+    products = products.filter(p=>p.id!==id);
+    cart = cart.filter(c=>c.id!==id);
+    renderSellerProducts();
+    filterProducts();
+    updateCartCount();
+}
 
-            products.unshift(product);
-            renderProducts();
-            renderSellerProducts();
-            e.target.reset();
-            alert('Product added successfully!');
-        }
+// AUTH
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
 
-        function renderSellerProducts() {
-            if (!currentUser) return;
-            const container = document.getElementById('seller-products');
-            container.innerHTML = products.map(product => `
-                <div style="border: 1px solid #eee; padding: 1rem; margin: 1rem 0; border-radius: 10px;">
-                    <h4>${product.title}</h4>
-                    <p>$${product.price} - ${product.category}</p>
-                    <button class="btn" onclick="deleteProduct(${product.id})" style="background: #dc3545; color: white;">Delete</button>
-                </div>
-            `).join('');
-        }
+document.addEventListener('click',e=>{
+    if(e.target.classList.contains('modal')) e.target.style.display='none';
+});
 
-        function deleteProduct(id) {
-            products = products.filter(p => p.id !== id);
-            renderProducts();
-            renderSellerProducts();
-        }
+document.getElementById('signup-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    const name = document.getElementById('su-name').value;
+    const email = document.getElementById('su-email').value;
+    currentUser = {name,email};
+    document.getElementById('user-label').style.display='inline';
+    document.getElementById('user-label').textContent='Hi, '+name;
+    document.getElementById('login-btn').style.display='none';
+    document.getElementById('signup-btn').style.display='none';
+    closeModal('signup-modal');
+});
 
-        // Cart
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const cartItem = cart.find(item => item.id === productId);
-            
-            if (cartItem) {
-                cartItem.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            
-            updateCartCount();
-            alert(`${product.title} added to cart!`);
-        }
+document.getElementById('login-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    currentUser = {name:'User',email};
+    document.getElementById('user-label').style.display='inline';
+    document.getElementById('user-label').textContent='Hi, User';
+    document.getElementById('login-btn').style.display='none';
+    document.getElementById('signup-btn').style.display='none';
+    closeModal('login-modal');
+});
 
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').textContent = count;
-        }
+document.getElementById('checkout-form').addEventListener('submit',placeOrder);
 
-        function renderCart() {
-            const container = document.getElementById('cart-items');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            document.getElementById('cart-total').textContent = total.toFixed(2);
+// SELLER FORM
+document.getElementById('product-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    const name = document.getElementById('p-name').value;
+    const price = parseFloat(document.getElementById('p-price').value);
+    const category = document.getElementById('p-category').value;
+    const desc = document.getElementById('p-desc').value || '';
+    const rating = parseFloat(document.getElementById('p-rating').value) || 4.5;
+    products.unshift({id:nextProductId++,name,category,price,desc,rating});
+    renderSellerProducts();
+    filterProducts();
+    e.target.reset();
+    alert('Product added');
+});
 
-            if (cart.length === 0) {
-                container.innerHTML = '<p>Your cart is empty. <a href="#" onclick="showSection(\'home\')">Continue shopping</a></p>';
-                return;
-            }
-
-            container.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="product-image" style="width: 60px; height: 60px; font-size: 1.5rem;">📱</div>
-                    <div class="item-details">
-                        <h4>${item.title}</h4>
-                        <p>$${item.price} each</p>
-                    </div>
-                    <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                    </div>
-                    <div>$${(item.price * item.quantity).toFixed(2)}</div>
-                    <button class="btn" onclick="removeFromCart(${item.id})" style="background: #dc3545; color: white;">Remove</button>
-                </div>
-            `).join('');
-        }
-
-        function updateQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(productId);
-                } else {
-                    renderCart();
-                    updateCartCount();
-                }
-            }
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            renderCart();
-            updateCartCount();
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-            document.getElementById('checkout-modal').style.display = 'block';
-        }
-
-        function handleCheckout(e) {
-            e.preventDefault();
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            const order = {
-                id: Date.now(),
-                items: [...cart],
-                total: total,
-                date: new Date().toLocaleDateString(),
-                status: 'pending'
-            };
-            
-            orders.unshift(order);
-            cart = [];
-            updateCartCount();
-            closeModal('checkout-modal');
-            renderOrders();
-            alert('Order placed successfully! Payment processed.');
-        }
-
-        function renderOrders() {
-            const container = document.getElementById('orders-list');
-            if (orders.length === 0) {
-                container.innerHTML = '<p>No orders yet. <a href="#" onclick="showSection(\'home\')">Start shopping</a></p>';
-                return;
-            }
-
-            container.innerHTML = orders.map(order => `
-                <div style="border: 1px solid #eee; padding: 1.5rem; margin: 1rem 0; border-radius: 10px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3>Order #${order.id}</h3>
-                        <span class="status ${order.status}">${order.status.toUpperCase()}</span>
-                    </div>
-                    <p>Date: ${order.date} | Total: $${order.total.toFixed(2)}</p>
-                    <div style="margin-top: 1rem;">
-                        ${order.items.map(item => `<div>${item.title} x${item.quantity}</div>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Close modals on outside click
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-    </script>
+// INIT
+renderProducts();
+</script>
 </body>
 </html>
