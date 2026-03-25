@@ -2,81 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ashopian - E‑Commerce</title>
+    <title>Ashopian – Phones, Beauty, Jewelry & Kitchen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Segoe UI,Arial,sans-serif;background:#f7f7f7;color:#333}
-        header{background:#ff5b00;color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
+        body{font-family:Segoe UI,Arial,sans-serif;background:#f6f6f6;color:#333}
         .container{max-width:1200px;margin:0 auto;padding:0 16px}
-        .header-wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+        header{background:#ff5b00;color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+        .head-wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
         .logo{font-size:1.6rem;font-weight:bold}
-        nav ul{display:flex;list-style:none;gap:16px}
-        nav a{color:#fff;text-decoration:none;font-weight:500}
-        .auth-area{display:flex;align-items:center;gap:8px}
-        .btn{border:none;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.9rem}
+        nav ul{list-style:none;display:flex;gap:16px;font-size:0.9rem}
+        nav a{color:#fff;text-decoration:none}
+        .auth{display:flex;align-items:center;gap:8px;font-size:0.85rem}
+        .btn{border:none;border-radius:20px;padding:6px 14px;font-size:0.85rem;cursor:pointer}
         .btn-primary{background:#fff;color:#ff5b00;font-weight:600}
-        .btn-ghost{background:transparent;border:1px solid #fff;color:#fff}
+        .btn-outline{background:transparent;border:1px solid #fff;color:#fff}
         main{min-height:80vh;padding:16px 0}
         .section{display:none}
         .section.active{display:block}
-        .hero{background:linear-gradient(120deg,#ff5b00,#ff8a3d);color:#fff;border-radius:16px;padding:24px;margin-top:8px}
-        .hero h1{margin-bottom:6px}
-        .hero p{opacity:0.9}
-        .search-bar{margin:18px 0;text-align:center}
-        .search-input{width:100%;max-width:500px;padding:10px 16px;border-radius:30px;border:1px solid #ddd;font-size:0.95rem}
-        .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-        .filters select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:0.85rem}
-        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-        .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;flex-direction:column}
-        .card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#fff7f1}
-        .card-body{padding:12px 14px;flex:1}
-        .card-title{font-size:1rem;font-weight:600;margin-bottom:4px}
-        .card-desc{font-size:0.82rem;color:#666;margin-bottom:6px;min-height:32px}
-        .card-meta{font-size:0.8rem;color:#999;margin-bottom:8px}
-        .price{font-size:1.1rem;font-weight:700;color:#ff5b00;margin-bottom:8px}
+        .hero{background:linear-gradient(120deg,#ff5b00,#ff9640);border-radius:16px;padding:20px;margin-top:8px;color:#fff}
+        .hero h1{font-size:1.4rem;margin-bottom:6px}
+        .hero p{font-size:0.9rem;opacity:0.95}
+        .search-bar{text-align:center;margin:18px 0}
+        .search-input{width:100%;max-width:520px;padding:10px 16px;border-radius:30px;border:1px solid #ddd;font-size:0.9rem}
+        .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;font-size:0.8rem}
+        .filters select{padding:6px 10px;border-radius:6px;border:1px solid:#ddd;font-size:0.8rem}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+        .card{background:#fff;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.08);overflow:hidden;display:flex;flex-direction:column}
+        .card-img{height:150px;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
+        .img-phone-orange{background:linear-gradient(135deg,#ffb88c,#ffffff)}
+        .img-phone-grey{background:linear-gradient(135deg,#d9dde3,#f5f5f5)}
+        .img-makeup{background:linear-gradient(135deg,#ffe0f0,#ffffff)}
+        .img-kitchen{background:linear-gradient(135deg,#ffe9c9,#ffffff)}
+        .img-rice{background:linear-gradient(135deg,#fff7dc,#ffffff)}
+        .img-dyson{background:linear-gradient(135deg,#dfe9ff,#ffffff)}
+        .img-perfume{background:linear-gradient(135deg,#ffe4ed,#ffffff)}
+        .img-dress{background:linear-gradient(135deg,#ffeaf7,#ffffff)}
+        .img-jewelry{background:linear-gradient(135deg,#fff6d9,#ffffff)}
+        .card-body{padding:10px 12px;font-size:0.85rem;flex:1;display:flex;flex-direction:column}
+        .card-title{font-weight:600;margin-bottom:4px}
+        .card-desc{font-size:0.8rem;color:#666;margin-bottom:6px;min-height:32px}
+        .card-meta{font-size:0.78rem;color:#999;margin-bottom:6px}
+        .price{color:#ff5b00;font-weight:700;margin-bottom:6px}
         .full-btn{width:100%;margin-top:auto}
-        .form-box{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);max-width:480px;margin:0 auto 20px}
-        .form-group{margin-bottom:10px}
-        .form-group label{font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px}
-        .form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 10px;border-radius:6px;border:1px solid #ddd;font-size:0.9rem}
-        h2{margin:10px 0}
-        #cart-items .cart-row,#orders-list .order-card{background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
-        .cart-row{display:flex;gap:10px;align-items:center}
-        .mini-img{width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:#fff2e8}
+        h2{font-size:1.1rem;margin:8px 0 10px}
+        .form-box{background:#fff;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.08);padding:14px;margin-bottom:16px;max-width:480px}
+        .form-group{margin-bottom:8px;font-size:0.85rem}
+        .form-group label{display:block;margin-bottom:3px;font-weight:600}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:7px 9px;border-radius:6px;border:1px solid #ddd;font-size:0.85rem}
+        #cart-items .row{background:#fff;border-radius:10px;padding:8px 10px;margin-bottom:8px;display:flex;gap:8px;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,0.05);font-size:0.85rem}
+        .mini-img{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:#fff4e8}
         .cart-main{flex:1}
-        .qty{display:flex;align-items:center;gap:4px;font-size:0.85rem}
-        .qty button{width:22px;height:22px;border-radius:50%;border:1px solid #ddd;background:#fff;cursor:pointer}
-        .text-link{color:#ff5b00;text-decoration:none}
-        .badge{display:inline-block;font-size:0.75rem;border-radius:999px;padding:2px 8px;font-weight:600}
+        .qty{display:flex;align-items:center;gap:3px;font-size:0.8rem;margin-top:4px}
+        .qty button{width:20px;height:20px;border-radius:50%;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:0.75rem}
+        .badge{border-radius:999px;padding:2px 8px;font-size:0.7rem;font-weight:600;display:inline-block}
         .badge-pending{background:#fff3cd;color:#8a6d3b}
         .badge-shipped{background:#d1ecf1;color:#0c5460}
         .badge-delivered{background:#d4edda;color:#155724}
-        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:20}
-        .modal-inner{background:#fff;border-radius:12px;max-width:420px;margin:8% auto;padding:16px}
+        .text-link{color:#ff5b00;text-decoration:none}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:20}
+        .modal-inner{background:#fff;border-radius:12px;max-width:420px;margin:8% auto;padding:14px;font-size:0.85rem}
         .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
         @media(max-width:768px){
-            .header-wrap{flex-direction:column;align-items:flex-start;gap:6px}
+            .head-wrap{flex-direction:column;align-items:flex-start;gap:6px}
             nav ul{flex-wrap:wrap}
         }
     </style>
 </head>
 <body>
 <header>
-    <div class="container header-wrap">
+    <div class="container head-wrap">
         <div class="logo">🛒 Ashopian</div>
         <nav>
             <ul>
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('cart')">Cart (<span id="cart-count">0</span>)</a></li>
-                <li><a href="#" onclick="showSection('orders')">Orders</a></li>
-                <li><a href="#" onclick="showSection('seller')">Seller</a></li>
+                ><a href="#" onclick="showSection('home')">Home</a></li>
+                ><a href="#" onclick="showSection('cart')">Cart (<span id="cart-count">0</span>)</a></li>
+                ><a href="#" onclick="showSection('orders')">Orders</a></li>
+                ><a href="#" onclick="showSection('seller')">Seller</a></li>
             </ul>
         </nav>
-        <div class="auth-area">
-            <span id="user-label" style="font-size:0.85rem;display:none;"></span>
-            <button class="btn btn-ghost" id="login-btn" onclick="openModal('login-modal')">Login</button>
-            <button class="btn btn-primary" id="signup-btn" onclick="openModal('signup-modal')">Sign Up</button>
+        <div class="auth">
+            <span id="user-label" style="display:none;"></span>
+            <button id="login-btn" class="btn btn-outline" onclick="openModal('login-modal')">Login</button>
+            <button id="signup-btn" class="btn btn-primary" onclick="openModal('signup-modal')">Sign Up</button>
         </div>
     </div>
 </header>
@@ -85,47 +93,50 @@
     <!-- HOME -->
     <section id="home" class="section active">
         <div class="hero">
-            <h1>Shop phones, fashion, beauty & kitchen</h1>
-            <p>Galaxy S24 in orange, iPhone 15 Pro, makeup, summer dresses with jewelry, perfumes, rice, mixers and more – in pounds.</p>
+            <h1>Orange Galaxy, iPhone, jewelry, perfumes & more</h1>
+            <p>Browse Samsung Galaxy S24, iPhone 15 Pro, makeup, rings, necklaces, perfumes, kitchen mixer, rice and more – all in pounds.</p>
         </div>
 
         <div class="search-bar">
-            <input id="search-input" class="search-input" type="text" placeholder="Search products, e.g. Galaxy S24, Chanel, mixer..." oninput="filterProducts()">
+            <input id="search-input" class="search-input" type="text"
+                   placeholder="Search Ashopian (Galaxy, Chanel, ring, mixer, rice...)"
+                   oninput="filterProducts()">
         </div>
 
         <div class="filters">
-            <select id="category-filter" onchange="filterProducts()">
+            <select id="cat-filter" onchange="filterProducts()">
                 <option value="">All categories</option>
                 <option value="phones">Phones</option>
-                <option value="fashion">Fashion</option>
-                <option value="beauty">Beauty</option>
+                <option value="makeup">Makeup</option>
+                <option value="jewelry">Jewelry</option>
+                <option value="perfume">Perfume</option>
                 <option value="kitchen">Kitchen</option>
                 <option value="grocery">Grocery</option>
             </select>
             <select id="price-filter" onchange="filterProducts()">
                 <option value="">All prices</option>
                 <option value="0-50">Under £50</option>
-                <option value="50-200">£50 – £200</option>
-                <option value="200+">Over £200</option>
+                <option value="50-150">£50 – £150</option>
+                <option value="150+">Over £150</option>
             </select>
             <select id="rating-filter" onchange="filterProducts()">
                 <option value="">All ratings</option>
-                <option value="4">4★ & up</option>
-                <option value="4.5">4.5★ & up</option>
+                <option value="4">4★+</option>
+                <option value="4.5">4.5★+</option>
                 <option value="5">5★ only</option>
             </select>
         </div>
 
-        <div id="products-grid" class="products-grid"></div>
+        <div id="products-grid" class="grid"></div>
     </section>
 
     <!-- CART -->
     <section id="cart" class="section">
         <h2>Your cart</h2>
         <div id="cart-items"></div>
-        <div id="cart-summary" style="margin-top:10px;">
-            <p><strong>Total: £<span id="cart-total">0.00</span></strong></p>
-            <button class="btn btn-primary" style="margin-top:8px;" onclick="beginCheckout()">Proceed to checkout</button>
+        <div style="margin-top:8px;font-size:0.9rem;">
+            <strong>Total: £<span id="cart-total">0.00</span></strong><br>
+            <button class="btn btn-primary" style="margin-top:6px;" onclick="beginCheckout()">Go to checkout</button>
         </div>
     </section>
 
@@ -141,35 +152,35 @@
         <div class="form-box">
             <form id="product-form">
                 <div class="form-group">
-                    <label>Product name</label>
+                    abel>Product name</label>
                     <input id="p-name" required>
                 </div>
                 <div class="form-group">
-                    <label>Price (£)</label>
+                    abel>Price (£)</label>
                     <input id="p-price" type="number" step="0.01" required>
                 </div>
                 <div class="form-group">
-                    <label>Category</label>
+                    abel>Category</label>
                     <select id="p-category" required>
                         <option value="phones">Phones</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="beauty">Beauty</option>
+                        <option value="makeup">Makeup</option>
+                        <option value="jewelry">Jewelry</option>
+                        <option value="perfume">Perfume</option>
                         <option value="kitchen">Kitchen</option>
                         <option value="grocery">Grocery</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
+                    abel>Description</label>
                     <textarea id="p-desc" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Rating (1–5)</label>
+                    abel>Rating (1–5)</label>
                     <input id="p-rating" type="number" min="1" max="5" step="0.1" value="4.8">
                 </div>
-                <button class="btn btn-primary full-btn" type="submit">Add product</button>
+                <button type="submit" class="btn btn-primary full-btn">Add product</button>
             </form>
         </div>
-
         <h3>Your products</h3>
         <div id="seller-products"></div>
     </section>
@@ -181,15 +192,15 @@
         <h2>Login</h2>
         <form id="login-form">
             <div class="form-group">
-                <label>Email</label>
+                abel>Email</label>
                 <input id="login-email" type="email" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                abel>Password</label>
                 <input id="login-pass" type="password" required>
             </div>
             <div class="modal-actions">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('login-modal')">Cancel</button>
+                <button type="button" class="btn btn-outline" onclick="closeModal('login-modal')">Cancel</button>
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
@@ -202,19 +213,19 @@
         <h2>Sign up</h2>
         <form id="signup-form">
             <div class="form-group">
-                <label>Name</label>
+                abel>Name</label>
                 <input id="su-name" required>
             </div>
             <div class="form-group">
-                <label>Email</label>
+                abel>Email</label>
                 <input id="su-email" type="email" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                abel>Password</label>
                 <input id="su-pass" type="password" required>
             </div>
             <div class="modal-actions">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('signup-modal')">Cancel</button>
+                <button type="button" class="btn btn-outline" onclick="closeModal('signup-modal')">Cancel</button>
                 <button type="submit" class="btn btn-primary">Create account</button>
             </div>
         </form>
@@ -227,29 +238,29 @@
         <h2>Checkout</h2>
         <form id="checkout-form">
             <div class="form-group">
-                <label>Full name</label>
+                abel>Full name</label>
                 <input id="co-name" required>
             </div>
             <div class="form-group">
-                <label>Address</label>
+                abel>Address</label>
                 <textarea id="co-address" rows="2" required></textarea>
             </div>
             <div class="form-group">
-                <label>Delivery method</label>
+                abel>Delivery option</label>
                 <select id="co-method" required>
                     <option value="delivery">Home delivery</option>
                     <option value="pickup">Pickup</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Card number (dummy)</label>
+                abel>Card number (dummy)</label>
                 <input id="co-card" placeholder="1111 2222 3333 4444" required>
             </div>
-            <p style="font-size:0.8rem;color:#666;">
-                This is a demo payment. Delivery or pickup details will appear with your order confirmation.
+            <p style="font-size:0.78rem;color:#666;">
+                This is a demo payment. Delivery / pickup information will show in your order details.
             </p>
             <div class="modal-actions">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('checkout-modal')">Cancel</button>
+                <button type="button" class="btn btn-outline" onclick="closeModal('checkout-modal')">Cancel</button>
                 <button type="submit" class="btn btn-primary">Pay & place order</button>
             </div>
         </form>
@@ -262,108 +273,133 @@ let currentUser = null;
 let products = [
     {
         id:1,
-        name:'Samsung Galaxy S24 (Sandstone Orange)',
-        category:'phones',
-        price:899,
-        desc:'6.2" AMOLED display, triple camera, Sandstone Orange colour.',
-        rating:4.8
+        name:"Samsung Galaxy S24 (Orange & White)",
+        category:"phones",
+        price:799,
+        desc:"Sandstone-style orange & white Samsung Galaxy S24 phone.",
+        rating:4.8,
+        imgClass:"img-phone-orange",
+        icon:"📱"
     },
     {
         id:2,
-        name:'Apple iPhone 15 Pro',
-        category:'phones',
+        name:"Apple iPhone 15 Pro with Mic",
+        category:"phones",
         price:999,
-        desc:'6.1" OLED display and A17 Pro chip, Pro camera system.',
-        rating:4.9
+        desc:"iPhone 15 Pro with pro camera and podcast-style mic feel.",
+        rating:4.9,
+        imgClass:"img-phone-grey",
+        icon:"📱🎙️"
     },
     {
         id:3,
-        name:'Summer Dress + Necklace & Earrings',
-        category:'fashion',
-        price:65,
-        desc:'Light summer dress with matching necklace and earrings set.',
-        rating:4.6
+        name:"Makeup Set – Lipstick & Mascara",
+        category:"makeup",
+        price:35,
+        desc:"Everyday lipstick and mascara in one beauty set.",
+        rating:4.7,
+        imgClass:"img-makeup",
+        icon:"💄"
     },
     {
         id:4,
-        name:'Makeup Set: Lipstick & Mascara',
-        category:'beauty',
-        price:32,
-        desc:'Daily wear lipstick and volume mascara combo.',
-        rating:4.7
+        name:"Kitchen Mixer",
+        category:"kitchen",
+        price:150,
+        desc:"Mixer for cakes, dough and desserts.",
+        rating:4.6,
+        imgClass:"img-kitchen",
+        icon:"🧁"
     },
     {
         id:5,
-        name:'Kitchen Mixer',
-        category:'kitchen',
-        price:180,
-        desc:'Stand mixer for cakes, dough and desserts.',
-        rating:4.5
+        name:"5kg Rice Bag",
+        category:"grocery",
+        price:12,
+        desc:"Premium long grain rice with rice picture.",
+        rating:4.4,
+        imgClass:"img-rice",
+        icon:"🍚"
     },
     {
         id:6,
-        name:'5kg Premium Rice',
-        category:'grocery',
-        price:11,
-        desc:'Long grain rice in 5kg bag, perfect for daily cooking.',
-        rating:4.4
+        name:"Dyson Style Hair Dryer Box",
+        category:"makeup",
+        price:299,
+        desc:"Hair dryer in Dyson-style box cover.",
+        rating:4.8,
+        imgClass:"img-dyson",
+        icon:"📦"
     },
     {
         id:7,
-        name:'Dyson Styled Hair Dryer (Box)',
-        category:'beauty',
-        price:299,
-        desc:'High performance hair dryer in Dyson-style box.',
-        rating:4.9
+        name:"Chanel Style Perfume",
+        category:"perfume",
+        price:95,
+        desc:"Luxury Chanel-inspired perfume bottle.",
+        rating:4.8,
+        imgClass:"img-perfume",
+        icon:"🧴"
     },
     {
         id:8,
-        name:'Chanel Inspired Perfume',
-        category:'beauty',
-        price:89,
-        desc:'Elegant floral fragrance in classic style bottle.',
-        rating:4.8
+        name:"Dior Style Perfume",
+        category:"perfume",
+        price:90,
+        desc:"Elegant Dior-inspired floral fragrance.",
+        rating:4.7,
+        imgClass:"img-perfume",
+        icon:"🧴"
     },
     {
         id:9,
-        name:'Dior Inspired Perfume',
-        category:'beauty',
-        price:85,
-        desc:'Soft, feminine perfume with warm floral notes.',
-        rating:4.7
+        name:"Summer Dress + Ring, Necklace & Earrings",
+        category:"jewelry",
+        price:75,
+        desc:"Light summer dress with matching ring, necklace and earrings.",
+        rating:4.6,
+        imgClass:"img-dress",
+        icon:"👗💍"
+    },
+    {
+        id:10,
+        name:"Pink Summer Dress Jewelry Set",
+        category:"jewelry",
+        price:80,
+        desc:"Pink dress with necklace, earrings and ring.",
+        rating:4.5,
+        imgClass:"img-dress",
+        icon:"👗💎"
+    },
+    {
+        id:11,
+        name:"Ring & Necklace Set",
+        category:"jewelry",
+        price:45,
+        desc:"Gold style ring and necklace jewelry set.",
+        rating:4.5,
+        imgClass:"img-jewelry",
+        icon:"💍"
     }
 ];
 
-let nextProductId = 10;
+let nextProductId = 12;
 let cart = [];
 let orders = [];
-
-function productIcon(p){
-    const n = p.name.toLowerCase();
-    if(n.includes('galaxy') || n.includes('iphone')) return '📱';
-    if(p.category==='fashion') return '👗';
-    if(n.includes('necklace') || n.includes('earrings')) return '💍';
-    if(n.includes('lipstick') || n.includes('mascara') || n.includes('makeup')) return '💄';
-    if(n.includes('perfume') || n.includes('chanel') || n.includes('dior')) return '🧴';
-    if(p.category==='kitchen' || n.includes('mixer')) return '🧁';
-    if(p.category==='grocery' || n.includes('rice')) return '🍚';
-    if(n.includes('dyson')) return '📦';
-    return '📦';
-}
 
 function showSection(id){
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    if(id==='cart') renderCart();
-    if(id==='orders') renderOrders();
-    if(id==='seller') renderSellerProducts();
+    if(id==="cart") renderCart();
+    if(id==="orders") renderOrders();
+    if(id==="seller") renderSellerProducts();
 }
 
 function renderProducts(list = products){
     const grid = document.getElementById('products-grid');
     grid.innerHTML = list.map(p=>`
         <div class="card">
-            <div class="card-img">${productIcon(p)}</div>
+            <div class="card-img ${p.imgClass}">${p.icon}</div>
             <div class="card-body">
                 <div class="card-title">${p.name}</div>
                 <div class="card-desc">${p.desc}</div>
@@ -377,17 +413,17 @@ function renderProducts(list = products){
 
 function filterProducts(){
     const q = document.getElementById('search-input').value.toLowerCase();
-    const cat = document.getElementById('category-filter').value;
+    const cat = document.getElementById('cat-filter').value;
     const price = document.getElementById('price-filter').value;
     const rating = document.getElementById('rating-filter').value;
     let list = products.filter(p=>{
         const matchQ = p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
         const matchCat = !cat || p.category===cat;
         let matchPrice = true;
-        if(price==='0-50') matchPrice = p.price<=50;
-        else if(price==='50-200') matchPrice = p.price>50 && p.price<=200;
-        else if(price==='200+') matchPrice = p.price>200;
-        const matchRating = !rating || p.rating>=parseFloat(rating);
+        if(price==="0-50") matchPrice = p.price <= 50;
+        else if(price==="50-150") matchPrice = p.price > 50 && p.price <= 150;
+        else if(price==="150+") matchPrice = p.price > 150;
+        const matchRating = !rating || p.rating >= parseFloat(rating);
         return matchQ && matchCat && matchPrice && matchRating;
     });
     renderProducts(list);
@@ -397,33 +433,33 @@ function addToCart(id){
     const p = products.find(x=>x.id===id);
     if(!p) return;
     const existing = cart.find(x=>x.id===id);
-    if(existing) existing.qty+=1;
-    else cart.push({id:p.id,name:p.name,price:p.price,qty:1,icon:productIcon(p)});
+    if(existing) existing.qty += 1;
+    else cart.push({id:p.id,name:p.name,price:p.price,qty:1,icon:p.icon});
     updateCartCount();
-    alert(p.name+' added to cart');
+    alert(p.name+" added to cart");
 }
 
 function updateCartCount(){
-    const c = cart.reduce((s,i)=>s+i.qty,0);
-    document.getElementById('cart-count').textContent = c;
+    const count = cart.reduce((s,i)=>s+i.qty,0);
+    document.getElementById('cart-count').textContent = count;
 }
 
 function renderCart(){
     const box = document.getElementById('cart-items');
     if(cart.length===0){
-        box.innerHTML = '<p>Your cart is empty. <a href="#" class="text-link" onclick="showSection(\\'home\\')">Shop now</a></p>';
-        document.getElementById('cart-total').textContent='0.00';
+        box.innerHTML = '<p>Your cart is empty. <a href="#" class="text-link" onclick="showSection(\'home\')">Shop Ashopian</a></p>';
+        document.getElementById('cart-total').textContent = "0.00";
         return;
     }
     let total = 0;
     box.innerHTML = cart.map(item=>{
-        const sub = item.price*item.qty;
-        total+=sub;
+        const sub = item.price * item.qty;
+        total += sub;
         return `
-        <div class="cart-row">
-            <div class="mini-img">${item.icon || '📦'}</div>
+        <div class="row">
+            <div class="mini-img">${item.icon}</div>
             <div class="cart-main">
-                <div style="font-size:0.9rem;font-weight:600;">${item.name}</div>
+                <div style="font-weight:600;">${item.name}</div>
                 <div style="font-size:0.8rem;color:#666;">£${item.price.toFixed(2)} each</div>
                 <div class="qty">
                     <button onclick="changeQty(${item.id},-1)">-</button>
@@ -431,8 +467,8 @@ function renderCart(){
                     <button onclick="changeQty(${item.id},1)">+</button>
                 </div>
             </div>
-            <div style="font-size:0.9rem;font-weight:600;">£${sub.toFixed(2)}</div>
-            <button class="btn btn-ghost" style="font-size:0.75rem;" onclick="removeFromCart(${item.id})">Remove</button>
+            <div style="font-size:0.85rem;font-weight:600;">£${sub.toFixed(2)}</div>
+            <button class="btn btn-outline" style="font-size:0.75rem;" onclick="removeFromCart(${item.id})">Remove</button>
         </div>`;
     }).join('');
     document.getElementById('cart-total').textContent = total.toFixed(2);
@@ -441,8 +477,8 @@ function renderCart(){
 function changeQty(id,delta){
     const item = cart.find(x=>x.id===id);
     if(!item) return;
-    item.qty+=delta;
-    if(item.qty<=0) cart = cart.filter(x=>x.id!==id);
+    item.qty += delta;
+    if(item.qty <= 0) cart = cart.filter(x=>x.id!==id);
     renderCart();
     updateCartCount();
 }
@@ -454,50 +490,51 @@ function removeFromCart(id){
 }
 
 function beginCheckout(){
-    if(cart.length===0){alert('Cart is empty');return;}
+    if(cart.length===0){alert("Cart is empty");return;}
     openModal('checkout-modal');
 }
 
 function placeOrder(e){
     e.preventDefault();
-    if(cart.length===0){alert('Cart is empty');return;}
-    const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    if(cart.length===0){alert("Cart is empty");return;}
     const method = document.getElementById('co-method').value;
+    const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
     const order = {
         id:Date.now(),
         items:JSON.parse(JSON.stringify(cart)),
         total,
         date:new Date().toLocaleDateString(),
-        status:'pending',
-        delivery:method==='delivery'?'Home delivery':'Pickup'
+        status:"pending",
+        delivery: method==="delivery" ? "Home delivery" : "Pickup"
     };
     orders.unshift(order);
     cart = [];
     updateCartCount();
     renderCart();
     closeModal('checkout-modal');
-    alert('Order placed. Delivery / pickup info will show with the order.');
+    alert("Order placed. Delivery / pickup information is saved with the order.");
 }
 
 function renderOrders(){
     const box = document.getElementById('orders-list');
     if(orders.length===0){
-        box.innerHTML = '<p>No orders yet.</p>';
+        box.innerHTML = "<p>No orders yet.</p>";
         return;
     }
     box.innerHTML = orders.map(o=>{
-        const statusClass = o.status==='pending'?'badge-pending':o.status==='shipped'?'badge-shipped':'badge-delivered';
+        const cls = o.status==="pending" ? "badge-pending" :
+                    o.status==="shipped" ? "badge-shipped" : "badge-delivered";
         return `
-        <div class="order-card">
+        <div style="background:#fff;border-radius:10px;padding:8px 10px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05);font-size:0.85rem;">
             <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div style="font-size:0.9rem;font-weight:600;">Order #${o.id}</div>
-                <span class="badge ${statusClass}">${o.status.toUpperCase()}</span>
+                <span style="font-weight:600;">Order #${o.id}</span>
+                <span class="badge ${cls}">${o.status.toUpperCase()}</span>
             </div>
             <div style="font-size:0.8rem;margin-top:4px;">
                 Date: ${o.date} · Total: £${o.total.toFixed(2)} · ${o.delivery}
             </div>
-            <div style="font-size:0.8rem;margin-top:6px;">
-                ${o.items.map(i=>`${i.name} x${i.qty}`).join('<br>')}
+            <div style="font-size:0.8rem;margin-top:4px;">
+                ${o.items.map(i=>`${i.name} x${i.qty}`).join("<br>")}
             </div>
         </div>`;
     }).join('');
@@ -505,11 +542,11 @@ function renderOrders(){
 
 function renderSellerProducts(){
     const box = document.getElementById('seller-products');
-    if(products.length===0){box.innerHTML='<p>No products.</p>';return;}
+    if(products.length===0){box.innerHTML="<p>No products yet.</p>";return;}
     box.innerHTML = products.map(p=>`
-        <div style="background:#fff;border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:0.85rem;display:flex;justify-content:space-between;align-items:center;">
+        <div style="background:#fff;border-radius:8px;padding:6px 8px;margin-bottom:6px;font-size:0.8rem;display:flex;justify-content:space-between;align-items:center;">
             <span>${p.name} · £${p.price.toFixed(2)} · ${p.category}</span>
-            <button class="btn btn-ghost" style="font-size:0.75rem;" onclick="deleteProduct(${p.id})">Delete</button>
+            <button class="btn btn-outline" style="font-size:0.7rem;" onclick="deleteProduct(${p.id})">Delete</button>
         </div>
     `).join('');
 }
@@ -522,52 +559,62 @@ function deleteProduct(id){
     updateCartCount();
 }
 
-// AUTH
-function openModal(id){document.getElementById(id).style.display='block';}
-function closeModal(id){document.getElementById(id).style.display='none';}
-
-document.addEventListener('click',e=>{
-    if(e.target.classList.contains('modal')) e.target.style.display='none';
+// AUTH + MODALS
+function openModal(id){document.getElementById(id).style.display="block";}
+function closeModal(id){document.getElementById(id).style.display="none";}
+document.addEventListener("click",e=>{
+    if(e.target.classList.contains("modal")) e.target.style.display="none";
 });
 
-document.getElementById('signup-form').addEventListener('submit',e=>{
+document.getElementById("signup-form").addEventListener("submit",e=>{
     e.preventDefault();
-    const name = document.getElementById('su-name').value;
-    const email = document.getElementById('su-email').value;
+    const name = document.getElementById("su-name").value;
+    const email = document.getElementById("su-email").value;
     currentUser = {name,email};
-    document.getElementById('user-label').style.display='inline';
-    document.getElementById('user-label').textContent='Hi, '+name;
-    document.getElementById('login-btn').style.display='none';
-    document.getElementById('signup-btn').style.display='none';
-    closeModal('signup-modal');
+    document.getElementById("user-label").style.display="inline";
+    document.getElementById("user-label").textContent="Hi, "+name;
+    document.getElementById("login-btn").style.display="none";
+    document.getElementById("signup-btn").style.display="none";
+    closeModal("signup-modal");
 });
 
-document.getElementById('login-form').addEventListener('submit',e=>{
+document.getElementById("login-form").addEventListener("submit",e=>{
     e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    currentUser = {name:'User',email};
-    document.getElementById('user-label').style.display='inline';
-    document.getElementById('user-label').textContent='Hi, User';
-    document.getElementById('login-btn').style.display='none';
-    document.getElementById('signup-btn').style.display='none';
-    closeModal('login-modal');
+    const email = document.getElementById("login-email").value;
+    currentUser = {name:"User",email};
+    document.getElementById("user-label").style.display="inline";
+    document.getElementById("user-label").textContent="Hi, User";
+    document.getElementById("login-btn").style.display="none";
+    document.getElementById("signup-btn").style.display="none";
+    closeModal("login-modal");
 });
 
-document.getElementById('checkout-form').addEventListener('submit',placeOrder);
+document.getElementById("checkout-form").addEventListener("submit",placeOrder);
 
 // SELLER FORM
-document.getElementById('product-form').addEventListener('submit',e=>{
+document.getElementById("product-form").addEventListener("submit",e=>{
     e.preventDefault();
-    const name = document.getElementById('p-name').value;
-    const price = parseFloat(document.getElementById('p-price').value);
-    const category = document.getElementById('p-category').value;
-    const desc = document.getElementById('p-desc').value || '';
-    const rating = parseFloat(document.getElementById('p-rating').value) || 4.5;
-    products.unshift({id:nextProductId++,name,category,price,desc,rating});
+    const name = document.getElementById("p-name").value;
+    const price = parseFloat(document.getElementById("p-price").value);
+    const category = document.getElementById("p-category").value;
+    const desc = document.getElementById("p-desc").value || "";
+    const rating = parseFloat(document.getElementById("p-rating").value) || 4.5;
+    const baseIcon = category==="phones" ? "📱" :
+                     category==="makeup" ? "💄" :
+                     category==="jewelry" ? "💍" :
+                     category==="perfume" ? "🧴" :
+                     category==="kitchen" ? "🧁" :
+                     category==="grocery" ? "🍚" : "📦";
+    products.unshift({
+        id:nextProductId++,
+        name,category,price,desc,rating,
+        imgClass:"img-jewelry",
+        icon:baseIcon
+    });
     renderSellerProducts();
     filterProducts();
     e.target.reset();
-    alert('Product added');
+    alert("Product added to Ashopian");
 });
 
 // INIT
